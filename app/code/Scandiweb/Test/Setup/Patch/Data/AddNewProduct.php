@@ -1,7 +1,7 @@
 <?php
 /**
  * @author      Mohammed Komsany <mohammed.komsany@scandiweb.com>
- * @copyright   Copyright (c) 2021 Scandiweb, Ltd (https://scandiweb.com)
+ * @copyright   Copyright (c) 2022 Scandiweb, Ltd (https://scandiweb.com)
  */
 
 namespace Scandiweb\Test\Setup\Patch\Data;
@@ -66,7 +66,7 @@ class AddNewProduct implements DataPatchInterface
      */
     protected EavSetup $eavSetup;
 
-    /** 
+    /**
      * @var array
      */
     protected array $sourceItems = [];
@@ -80,7 +80,7 @@ class AddNewProduct implements DataPatchInterface
      * @param SourceItemsSaveInterface $sourceItemsSaveInterface
      * @param State $appState
      * @param StoreManagerInterface $storeManager
-		 * @param EavSetup $eavSetup
+     * @param EavSetup $eavSetup
      * @param CategoryLinkManagementInterface $categoryLink
      */
     public function __construct(
@@ -89,18 +89,18 @@ class AddNewProduct implements DataPatchInterface
         State $appState,
         StoreManagerInterface $storeManager,
         EavSetup $eavSetup,
-				SourceItemInterfaceFactory $sourceItemFactory,
+        SourceItemInterfaceFactory $sourceItemFactory,
         SourceItemsSaveInterface $sourceItemsSaveInterface,
-				CategoryLinkManagementInterface $categoryLink
+        CategoryLinkManagementInterface $categoryLink
     ) {
         $this->appState = $appState;
         $this->productInterfaceFactory = $productInterfaceFactory;
         $this->productRepository = $productRepository;
-				$this->eavSetup = $eavSetup;
+        $this->eavSetup = $eavSetup;
         $this->storeManager = $storeManager;
         $this->sourceItemFactory = $sourceItemFactory;
         $this->sourceItemsSaveInterface = $sourceItemsSaveInterface;
-				$this->categoryLink = $categoryLink;
+        $this->categoryLink = $categoryLink;
     }
 
     /**
@@ -130,11 +130,11 @@ class AddNewProduct implements DataPatchInterface
         // Create New Product
         $attributeSetId = $this->eavSetup->getAttributeSetId(Product::ENTITY, 'Default');
         $websiteIDs = [$this->storeManager->getStore()->getWebsiteId()];
-				$product->setTypeId(Type::TYPE_SIMPLE)
+        $product->setTypeId(Type::TYPE_SIMPLE)
             ->setWebsiteIds($websiteIDs)
             ->setAttributeSetId($attributeSetId)
             ->setName('Epic Pants')
-						->setUrlKey('epic-pants')
+            ->setUrlKey('epic-pants')
             ->setSku('epic-pants')
             ->setPrice(99.99)
             ->setVisibility(Visibility::VISIBILITY_BOTH)
@@ -151,7 +151,7 @@ class AddNewProduct implements DataPatchInterface
 
         $this->sourceItemsSaveInterface->execute($this->sourceItems);
 
-				$this->categoryLink->assignProductToCategories($product->getSku(), [2]);
+        $this->categoryLink->assignProductToCategories($product->getSku(), [2]);
     }
 
     /**
